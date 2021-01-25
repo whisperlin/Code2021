@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gamePrococol-config PUBLIC "gameProtocolDTD"	"gameProtocol.dtd">
+<gamePrococol-config>
+
+	<!-- 包头识别 只读4个字节
+	<packageHeader type="amf">
+		<byte>a</byte>
+		<byte>p</byte>
+		<byte>v</byte>
+		<byte>o</byte>
+	</packageHeader>
+
+	<default javaPackage="com.ages.protocol.po" javaBasePoImport="com.ages.protocol.BasePo"
+	flashPackage="com.ages.protocol.po" flashBasePoImport="com.ages.protocol.BasePo" />
+-->
+
+
+<!-- 配置
+	对应java package:协议
+ -->
+	<setting>
+		<packageHeaderReq type="3guu" code="apvo"></packageHeaderReq>
+		<packageHeaderRes type="3guu" code="apvo"></packageHeaderRes>
+		<!-- compress 默认压缩方式 -->
+		<defaultCompress>0</defaultCompress>
+		<!-- compressType 默认传输包类型 1是amf 2.是自定义包-->
+		<defaultProtocolType>1</defaultProtocolType>				
+		<java package="com.hbt.protocol.po" BasePoImport="com.hbt.protocol.BasePo" GenerateDir="C:\VO\JAVA\"/>
+		<flash package="com.hbt.protocol.po" BasePoImport="com.hbt.protocol.BasePo" GenerateDir="C:\VO\FLASH\"/>
+		<cpp package="com.hbt.protocol.po" BasePoImport="com.hbt.protocol.BasePo" GenerateDir="C:\VO\CPP\"/>
+		<questionPackageFormat>%</questionPackageFormat>
+		<answerPackageFormat>%_Rp</answerPackageFormat>
+		<!-- 默认加密方式1为加密，0为不加密 -->
+		<defaultEncryptTypeUp>0</defaultEncryptTypeUp>
+		<defaultEncryptTypeDown>0</defaultEncryptTypeDown>
+	</setting>
+
+	<!-- 导入包
+	    protocolPfx: 协议号前缀。 （允许值范围： 1 - 4095 ） 
+		subPackageName: 子包名。（日后将变成）
+		configFileName：导入的文件名.xml结尾。
+	-->
+
+	<import protocolPfx="10" subPackageName="battle" configFileName="protocol_battle.xml" />
+	<!--<import protocolPfx="1" subPackageName="standard" configFileName="protocol_standard.xml" />
+	<import protocolPfx="2" subPackageName="user" configFileName="protocol_user.xml" />
+	<import protocolPfx="3" subPackageName="room" configFileName="protocol_room.xml" />
+	<import protocolPfx="4" subPackageName="mail" configFileName="protocol_mail.xml" />
+	<import protocolPfx="6" subPackageName="item" configFileName="protocol_item.xml" />
+	<import protocolPfx="7" subPackageName="equip" configFileName="protocol_equip.xml" />
+	<import protocolPfx="12" subPackageName="quest" configFileName="protocol_quest.xml" />
+	<import protocolPfx="11" subPackageName="social" configFileName="protocol_social.xml" />
+	<import protocolPfx="13" subPackageName="huntlot" configFileName="protocol_huntlot.xml" />
+	<import protocolPfx="14" subPackageName="manor" configFileName="protocol_manor.xml" />
+    <import protocolPfx="15" subPackageName="platform" configFileName="protocol_platform.xml" />
+    -->
+	
+	<definition namePfx="MODULE_ID_">
+		<const fieldType="eInt" value="0" name="UNSET" comment="未设置"/>
+		<const fieldType="eInt" value="1" name="ENTRANCE" comment="入口"/>
+		<const fieldType="eInt" value="5" name="CHAT" comment="聊天室"/>
+		<const fieldType="eInt" value="2" name="LOBBY" comment="游戏大厅"/>
+		<const fieldType="eInt" value="3" name="TOWN" comment="城镇"/>
+		<const fieldType="eInt" value="7" name="UNION" comment="工会"/>
+		<const fieldType="eInt" value="8" name="SHOP" comment="商店"/>
+		<const fieldType="eInt" value="10" name="BATTLE" comment="战斗模块"/>
+	</definition>
+
+	<!-- 主配置文件建议全部导入不写任何协议 除了ECHO -->
+	<!-- 协议包设定文件
+	主属性<parse/>
+		protocol：协议号。（允许值范围：1 - 65535）
+		className：协议名。传输包命名
+		springBeanName：绑定Spring指定的服务，必须服务存在
+		comment：包注释
+		direction：
+	发问包字段<q/>
+		fieldType：字段类型，兼容java与flash
+		fieldName：字段命名。
+		comment：字段注释。
+	应答包字段<a/>如果无需应答，可不填任何<a>字段
+		fieldType：字段类型，兼容java与flash
+		fieldName：字段命名。
+		comment：字段注释。		
+	 -->
+
+	<parse protocol="1" className="EchoPo" springBeanName="echoService" methodName="testMethodInvoke" 
+	compress="1" protocolType="1"  comment="Echo测试包" encryptTypeUp="0" encryptTypeDown="0">
+		<!-- 发问包 -->
+		<q fieldType="eStr" fieldName="echoStr" comment="测试字符串" />
+		<q fieldType="eInt" fieldName="echoInt" comment="测试数字" />
+		<!-- <q fieldType="eList" fieldName="echoList" listDetailType="com.ages.protocol.po.TestObj" comment="测试数字" />-->
+		<q fieldType="eFloat" fieldName="echoFloat" comment="测试单精度浮点"/>
+		<q fieldType="eBoolean" fieldName="echoBoolean" comment="测试布尔值"/>
+		<q fieldType="eByte" fieldName="echoByte" comment="测试字节"/>
+		<q fieldType="eShort" fieldName="echoShort" comment="测试短整型"/>
+		<q fieldType="eLong" fieldName="echoLong" comment="测试长整型"/>
+		<q fieldType="eDouble" fieldName="echoDouble" comment="测试双精度浮点"/>
+		<q fieldType="eList" fieldName="echoList" listDetailType="com.hbt.protocol.po.TestObjPo" comment="测试集合整型" />
+		<q fieldType="eList" fieldName="echoList1" listDetailType="eInt"/>
+		<q fieldType="eList" fieldName="echoList2" listDetailType="eStr"/>
+		<!-- 应答包 -->
+		<a fieldType="eStr" fieldName="echoStr" comment="测试字符串" />
+		<a fieldType="eInt" fieldName="echoInt" comment="测试数字" />
+		<a fieldType="eFloat" fieldName="echoFloat" comment="测试单精度浮点"/>
+		<a fieldType="eBoolean" fieldName="echoBoolean" comment="测试布尔值"/>
+		<a fieldType="eByte" fieldName="echoByte" comment="测试字节"/>
+		<a fieldType="eShort" fieldName="echoShort" comment="测试短整型"/>
+		<a fieldType="eLong" fieldName="echoLong" comment="测试长整型"/>
+		<a fieldType="eDouble" fieldName="echoDouble" comment="测试双精度浮点"/>
+		<a fieldType="eList" fieldName="echoList" listDetailType="com.hbt.protocol.po.TestObjPo" comment="测试集合整型" />
+		<a fieldType="eList" fieldName="echoList1" listDetailType="eInt"/>
+		<a fieldType="eList" fieldName="echoList2" listDetailType="eStr"/>
+	</parse>
+
+	<parse protocol="2" className="HeartbeatPo" springBeanName="heartBeatService" methodName="heartBeatInvoke" 
+	 	comment="心跳包">
+		<!-- 发问包 -->
+		<q fieldType="eStr" fieldName="playerId" comment="玩家id" />
+		<!-- 应答包 -->
+		<a fieldType="eInt" fieldName="unreadMailCount" comment="未读邮件数" />
+	</parse>
+
+	<parse protocol="3" className="ConfigPo" springBeanName="configService" methodName="sendConfigInvoke" 
+	 	comment="调试包">
+		<!-- 发问包 -->
+		<a fieldType="eBoolean" fieldName="debug" comment="是否启用debug" />
+		<a fieldType="eBoolean" fieldName="useHeartBeatSystem" comment="是否启用心跳包" />
+	</parse>
+	
+	<parse protocol="auto" className="VersionPo" springBeanName="versionService" methodName="sendVersionInvoke" 
+	 	comment="版本发送包">
+		<a fieldType="eInt" fieldName="id" comment="版本id" />
+		<a fieldType="eStr" fieldName="publishDate" comment="发布日期" />
+		<a fieldType="eStr" fieldName="sVersion" comment="服务器版本" />
+		<a fieldType="eStr" fieldName="cVersion" comment="客户端版本" />
+		<a fieldType="eStr" fieldName="description" comment="描述" />
+	</parse>
+	
+	<parse protocol="998" className="TestObjPo" comment="测试对象">
+		<q fieldType="eStr" fieldName="echoStr" comment="测试字符串" />
+		<q fieldType="eInt" fieldName="echoInt" comment="测试数字" />
+		<q fieldType="eFloat" fieldName="echoFloat" comment="测试单精度浮点"/>
+		<q fieldType="eBoolean" fieldName="echoBoolean" comment="测试布尔值"/>
+		<q fieldType="eByte" fieldName="echoByte" comment="测试字节"/>
+		<q fieldType="eShort" fieldName="echoShort" comment="测试短整型"/>
+		<q fieldType="eLong" fieldName="echoLong" comment="测试长整型"/>
+		<q fieldType="eDouble" fieldName="echoDouble" comment="测试双精度浮点"/>
+	</parse>
+	
+	<parse protocol="999" className="ExcptionAdvicePo" comment="异常通知">
+		<q fieldType="eInt" fieldName="excptionId" comment="异常ID"/>
+		<q fieldType="eInt" fieldName="type" comment="类型 1需要刷新页面 2其他"/>
+		<q fieldType="eStr" fieldName="excptionMsg" comment="异常信息"/>		
+	</parse>
+</gamePrococol-config>

@@ -1,0 +1,70 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public  class {class_name} : {class_name}Base
+{
+
+	static {class_name} self;
+    public static {class_name} Instance()
+    {
+        if (null == self)
+        {
+            UIBase t = UIBase.GetUI<{class_name}>("{ui_name}");
+			// BindUI({class_name}.Instance(), false); 
+			
+            self = ({class_name})t;
+        }
+        return self;
+    }
+
+	public override void FillData()
+    {
+        
+    }
+
+    
+
+    public override void OnDestroy()
+    {
+        
+    }
+
+ 
+
+    
+
+    public override void OnInit()
+    {
+		self = this;
+		
+        
+    }
+    
+
+    public override void OnShow()
+    {
+ 
+        FillData();
+        MoveToTop( );
+		//LEventSystem.AddEvent(LEventType.TownDataDirty, FillData);
+ 
+    }
+
+	public override void OnHide()
+    {
+        //LEventSystem.RemoveEvent(LEventType.TownDataDirty, FillData);
+    }
+
+	public override void Update()
+    {
+         
+    }
+
+     
+}
+
+
+ 

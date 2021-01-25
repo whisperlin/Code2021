@@ -1,0 +1,76 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public class {class_name} : UIBase
+{
+
+	static {class_name} self;
+    public static {class_name} Instance()
+    {
+        if (null == self)
+        {
+            UIBase t = UIBase.GetUI<{class_name}>("{ui_name}");
+            self = ({class_name})t;
+        }
+        return self;
+    }
+
+    //{propertys_and_function}
+
+	void FillData()
+    {
+        if(!IsVisible())
+        {
+            return;
+        }
+    }
+    public override void Init()
+    {
+		self = this;
+        if (root)
+        {
+            UIHelper.AddOnClick(root.gameObject, onBackGroundClick);
+        }
+        //{ui_init}
+
+		LEventSystem.AddEvent(LEventType.TownDataDirty, FillData);
+    }
+
+    public override void OnDisable()
+    {
+
+    }
+
+    public override void OnEnable()
+    {
+        
+    }
+
+    public override void Update()
+    {
+
+    }
+
+    public override void OnDestroy()
+    {
+
+    }
+
+    public override void OnShow()
+    {
+        FillData();
+        ClickHidePanelUI.SetTargetDialog(this);
+		//ClickHidePanelUI.PopAndHide();
+    }
+
+    public override void OnHide()
+    {
+
+    }
+}
+
+
+ 

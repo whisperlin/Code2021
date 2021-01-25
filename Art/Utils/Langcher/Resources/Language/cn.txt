@@ -1,0 +1,4 @@
+{
+	0: "测试 langcher",
+	1: "中文 langcher"
+}
